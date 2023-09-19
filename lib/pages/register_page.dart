@@ -1,3 +1,4 @@
+import 'package:basic/controllers/home_page_controllers.dart';
 import 'package:basic/custom_widgets/login_register_widget.dart';
 import 'package:basic/pages/login_page.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,19 @@ class RegisterPage extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final controller = Get.put(authController());
 
   @override
   Widget build(BuildContext context) {
     void register() {
-      formKey.currentState!.validate();
+      if (formKey.currentState!.validate()) {
+        controller.signUp(
+          email: emailController.text,
+          password: passwordController.text,
+          name: nameController.text,
+          confirmPassword: confirmController.text
+        );
+      }
     }
 
     return Scaffold(
